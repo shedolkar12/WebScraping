@@ -1,0 +1,29 @@
+<link rel="stylesheet" href= "/static/css/bootstrap.min.css"></link>
+<form class="form-horizontal"  action="/" method="post">
+{% csrf_token %}
+
+<div class="control-group" style="padding:20px;">
+    <div class="controls">
+        <input type="text" id="search" name="q"  placeholder="">
+         <button type="submit" class="btn">Search</button>
+    </div>
+</div>
+</form>
+{% if is_data  %}
+<div>
+    <table>
+    <tr>
+      <th class="col-md-2"> App Name </th>
+      <th class="col-md-2"> App ID </th>
+      <th class="col-md-2"> Details </th>
+    </tr>
+    {% for u in data %}
+    <tr>
+      <td class="col-md-2">{{u.app_name}}</td>
+      <td class="col-md-2">{{u.app_id}} </td>
+      <td class="col-md-2"><a href="/details?&app_id={{ u.app_id }}"> more details  </a> </td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
