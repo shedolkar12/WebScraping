@@ -36,8 +36,7 @@ def index(request):
         return render(request, 'search.html', data)
 
 def get_data(link):
-    page = requests.get( 'https://play.google.com' + link)
-    tree = html.fromstring(page.content)
+    
     #data will be returned in the following format
     data = {"app_id": '', "app_name": '',}
     #link contain id extracting id from link
@@ -50,6 +49,8 @@ def get_data(link):
         data['app_name'] = query.app_name
         
     except app_details.DoesNotExist:
+        page = requests.get( 'https://play.google.com' + link)
+        tree = html.fromstring(page.content)
         # parsing and storing app details in the database
         app_name = tree.xpath('//div[@class="id-app-title"]/text()')
         developer = tree.xpath('//span[@itemprop="name"]/text()')
